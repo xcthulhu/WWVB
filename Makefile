@@ -1,16 +1,18 @@
 # $Id$
 
-all :	wwvbaq tuneup complexify
+EXECUTABLES=wwvbaq tuneup
+
+all :	$(EXECUTABLES)
 
 wwvbaq : wwvbaq.c param.h
 	$(CC) -o wwvbaq -lm -lcomedi -lrt wwvbaq.c
 
-tuneup: param.h tuneup.c
+tuneup : param.h tuneup.c
 	$(CC) -o tuneup -lm tuneup.c
 
-complexify: param.h complexify.c
-	$(CC) -o complexify complexify.c
-
+clean :
+	rm $(EXECUTABLES)
+	
 # $Log$
 # Revision 1.6  2010-08-03 14:54:55  jpd
 # Added Matt's revisions:

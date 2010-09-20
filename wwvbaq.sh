@@ -1,7 +1,7 @@
 #!/bin/sh
 # $Id$
 
-./wwvbaq | ./wwvbred.py 
+./wwvbaq | python wwvbred.py 
 
 # $Log$
 # Revision 1.3  2010-08-03 14:54:55  jpd

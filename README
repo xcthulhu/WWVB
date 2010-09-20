@@ -1,0 +1,49 @@
+(I) Overview
+
+This directory contains the source code for an experiment John Doty and Matthew Wampler-Doty have been conducting which investigates whether cosmic gamma ray bursts are detectable by monitoring highly regular low bandwith radio signals (10kHZ to 100kHZ).  The operating hypothesis is that cosmic gamma ray bursts cause ionization in the upper atmosphere, that in turn changes the phase of radio signals in the specified spectrum.
+
+The WWVB atomic clock signal out of Fort Collins, CO pulses at 60kHZ exactly once every second.  Every 10 minutes on the hour the phase of the signal is shifted by 45 degrees, and is then adjusted back after 5 minutes.  We monitor this system using a custom designed high-precision ovenized crystal oscillator, which is used as an external trigger for the PCI-DAS1602 data acquisition card (by the company formerly known as Measurement Computing).
+
+The data acquisition software is written in C using COMEDI.  The data acquisition code assumes a RTLinux kernel, since it demands real-time priority.  
+
+After data is acquired, it is streamed through a python script.  There the phase of the signal each second is calculated, as well as the amplitude.  The WWVB uses an amplitude-shift keying system, so from the amplitude of each second a binary value (0 or 1) may be recovered. The time offset, phase, amplitude, the calculated binary values, and the number of winds (for the phase) are dumped to a tab seperated value file (tsv).
+
+The WWVB encodes the time in these binary values; this code is described here:
+
+http://en.wikipedia.org/wiki/WWVB
+
+The time is then calculated from this signal.  File names are time stamped using this measured time.  The time is also used to control for the phase shift that occurs every five minutes on the hour.
+
+The data gathered is intended to be used in comparison to other gamma ray burst events gathered by other means.  To this end, we have written software for processing gamma ray burst data from the Fermi satellite.  For each gamma ray burst, PyEphem is used to determine whether the event occured above or below the horizon of the location of the experiment (in this case, Pine, CO).  An XEphem database of suitable events is compiled, which are used as reference points for data analysis of the experimental data.
+
+
+(II) Files & Directories
+
+gEDA/		Schematics & Layouts for circuit components
+
+fermi/		Python, Shell and AWK scripts for processing
+		Fermi events, grabbed from:
+		http://gcn.gsfc.nasa.gov/fermi_grbs.html
+
+Data/		This directory is for collected data.  
+		Repository version should be empty
+
+wwvbaq.c	COMEDI driver for the PCI-DAS1602/16
+		Outputs a stream of floats
+		Realtime priority: 70
+
+wwvbred.py	A python script that processes raw data from the
+		data acquisition card.
+		Outputs a TSV file, with fields for
+		(1) time of data-acquisition (as offset)
+		(2) phase
+		(3) amplitude
+		(4) bit value
+		(5) winding number
+		File names are determined by time read from the bit-stream
+
+wwvbaq.sh	Runs the data acquisition process
+
+wwvbaq_rename.py Renames data files based on time codes within
+
+mvloop.sh	Runs wwvbaq_rename.py repeatedly

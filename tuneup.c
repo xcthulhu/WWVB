@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: tuneup.c,v 1.4 2009-07-15 19:39:33 jpd Exp $ */
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -53,7 +53,7 @@ int main(int argc,char *argv[])
 
 
 /*
- * $Log$
+ * $Log: tuneup.c,v $
  * Revision 1.4  2009-07-15 19:39:33  jpd
  * Tuneup timing.
  *

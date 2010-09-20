@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: wwvbaq.c,v 1.8 2010-08-03 14:54:55 jpd Exp $
  */
 
 #include <unistd.h>
@@ -46,8 +46,8 @@ comedi_cmd * DAQ_Cmd( void )
 	c.scan_begin_src = TRIG_FOLLOW;	// No scan delay
 	c.scan_begin_arg = 0;		// 
 
-	c.convert_src = TRIG_TIMER;	// Nyquist samples
-	c.convert_arg = SAMPLE_NS;	// 125000 ns -> 80 kHz
+	c.convert_src = TRIG_EXT;	// External Trigger
+	//c.convert_arg = 8;	         
 	
 	c.scan_end_src = TRIG_COUNT;	// a scan is just
 	c.scan_end_arg = 1;		// a single sample.
@@ -242,7 +242,7 @@ int main(int argc,char *argv[])
 }
 
 /*
- * $Log$
+ * $Log: wwvbaq.c,v $
  * Revision 1.8  2010-08-03 14:54:55  jpd
  * Added Matt's revisions:
  * - Data acquisition code in wwvbaq.c now uses real time priority; Makefile hacked accordingly
