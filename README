@@ -6,7 +6,7 @@ The WWVB atomic clock signal out of Fort Collins, CO pulses at 60kHZ exactly onc
 
 The data acquisition software is written in C using COMEDI.  The data acquisition code assumes a RTLinux kernel, since it demands real-time priority.  
 
-After data is acquired, it is streamed through a python script.  There the phase of the signal each second is calculated, as well as the amplitude.  The WWVB uses an amplitude-shift keying system, so from the amplitude of each second a binary value (0 or 1) may be recovered. The time offset, phase, amplitude, the calculated binary values, and the number of winds (for the phase) are dumped to a tab seperated value file (tsv).
+After data is acquired, it is streamed through a python script.  There the phase of the signal each second is calculated, as well as the amplitude.  The WWVB uses an amplitude-shift keying system, so from the amplitude of each second a binary value (0 or 1) may be recovered. The time offset, phase, amplitude, and the calculated binary values (for the phase) are dumped to a tab seperated value file (tsv).
 
 The WWVB encodes the time in these binary values; this code is described here:
 
@@ -39,7 +39,6 @@ wwvbred.py	A python script that processes raw data from the
 		(2) phase
 		(3) amplitude
 		(4) bit value
-		(5) winding number
 		File names are determined by time read from the bit-stream
 
 wwvbaq.sh	Runs the data acquisition process

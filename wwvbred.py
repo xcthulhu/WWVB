@@ -190,7 +190,6 @@ def main():
 					f.close()
 					print >>sys.stderr, "Directing file output to:", filename(time,0)
 					f = open(filename(time,0), 'w')
-					bitoff = 0
 			# Then output the top of the queue to file
 			print_data(f, queue.pop(0), time, 0)
 				
