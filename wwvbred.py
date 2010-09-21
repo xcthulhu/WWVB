@@ -242,7 +242,7 @@ def print_data (f, (bitoff, phase, amplitude, bit, winds),
 		ms = nt.tm_min
 
 	# We need to adjust the phase because the WWVB signal has a slight phase shift
-	if (ms >= 10 and ms < 15): winds += 0.25
+	if (ms >= 10 and ms < 15): winds += 0.125
 
 	print >>sys.stderr, "%d\t%g\t%g\t%d" % (bitoff, phase + 2*np.pi*winds, amplitude, bit)
 	print >>f, "%d\t%g\t%g\t%d" % (bitoff, phase + 2*np.pi*winds, amplitude, bit)
